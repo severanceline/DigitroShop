@@ -78,9 +78,9 @@ To give you a visual tour of **DigitroShop**, here are the previews of the User 
 |:---:|:---:|
 | ![Product Details](Screenshots/product-detail-page.png) | ![Cart](Screenshots/cart-page.png) |
 
-| Login & Registration |
-|:---:|
-| ![Login](Screenshots/login-page.png) |
+| Sign In | Sign Up |
+|:---:|:---:|
+| ![Sign In](Screenshots/login-page.png) | ![Sign Up](Screenshots/signup-page.png) |
 
 ### ⚙️ Admin Dashboard (Management)
 
