@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\EndPoint.Site",
+    "\\EndPoint.Site\\Areas",
+    "\\EndPoint.Site\\Areas\\Admin",
+    "\\EndPoint.Site\\Areas\\Admin\\Views",
+    "\\EndPoint.Site\\Areas\\Admin\\Views\\Order",
+    "\\Store.Application",
+    "\\Store.Application\\Services",
+    "\\Store.Application\\Services\\Finances",
+    "\\Store.Application\\Services\\Finances\\Queries",
+    "\\Store.Application\\Services\\Finances\\Queries\\GetRequestPayForAdmin"
+  ],
+  "SelectedNode": "\\Store.Application\\Services\\Finances\\Queries\\GetRequestPayForAdmin\\Class1.cs",
+  "PreviewInSolutionExplorer": false
+}

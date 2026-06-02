@@ -1,0 +1,57 @@
+﻿@using Store.Application.Services.Finances.Queries.GetRequestPayForUser;
+@model ResultGetRequestPayForUserDto
+@{
+    ViewData["Title"] = "فاکتور پرداخت";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null && !string.IsNullOrEmpty(Model.Athority))
+{
+    <div class="card p-4 mb-4 shadow-sm">
+        <h5 class="card-title mb-3 text-info">
+            <i class="fa fa-receipt"></i> جزئیات فاکتور (شناسه: @Model.Id)
+        </h5>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered mb-0">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="text-center"></th>
+                        <th scope="col" class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-weight-bold text-nowrap">مبلغ پرداختی:</td>
+                        <td class="text-right">@Model.Amount.ToString("n0") تومان</td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold text-nowrap">تاریخ پرداخت:</td>
+                        <td class="text-right" dir="ltr">@(Model.PayTime?.ToString("yyyy/MM/dd HH:mm") ?? "---")</td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold text-nowrap">کد تراکنش (Authority):</td>
+                        <td class="text-right text-truncate" style="max-width: 300px;" title="@Model.Athority">
+                            @Model.Athority
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold text-nowrap">شماره پیگیری (RefId):</td>
+                        <td class="text-right">
+                            @(string.IsNullOrEmpty(Model.RefId) ? "ثبت نشده" : Model.RefId)
+                        </td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 text-center">
+             <button type="button" class="btn btn-outline-info btn-sm" onclick="window.print()"><i class="fa fa-print"></i> چاپ فاکتور</button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning text-center" role="alert">
+        <i class="fa fa-exclamation-triangle"></i> اطلاعات فاکتور یافت نشد یا امکان بارگذاری آن وجود نداشت.
+    </div>
+}

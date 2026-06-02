@@ -1,0 +1,44 @@
+﻿@using Store.Application.Services.Finances.Queries.GetRequestPayForUser
+@model ResultGetRequestPayForUserDto
+
+@if (Model != null && !string.IsNullOrEmpty(Model.Athority))
+{
+    <div class="modal fade" id="invoiceModal-@Model.Id" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title">
+                        <i class="fa fa-receipt text-info"></i> رسید پرداخت
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            مبلغ پرداختی:
+                            <strong>@Model.Amount.ToString("n0") تومان</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            شماره پیگیری (RefId):
+                            <span class="text-primary">@(string.IsNullOrEmpty(Model.RefId) ? "ثبت نشده" : Model.RefId)</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            کد تراکنش:
+                            <small class="text-muted text-truncate" style="max-width: 150px;" title="@Model.Athority">@Model.Athority</small>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            تاریخ پرداخت:
+                            <span dir="ltr">@(Model.PayTime?.ToString("yyyy/MM/dd HH:mm") ?? "---")</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">بستن</button>
+                    <button type="button" class="btn btn-info btn-sm" onclick="window.print()"><i class="fa fa-print"></i> چاپ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

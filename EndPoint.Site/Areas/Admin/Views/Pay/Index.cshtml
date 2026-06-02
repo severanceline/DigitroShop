@@ -1,0 +1,105 @@
+﻿@addTagHelper *, LazZiya.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Store.Application.Services.Finances.Queries.GetAllRequestPayForAdmin;
+@model ResultGetAllRequestPayDto
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+    int pageNumber;
+    int pageSize;
+    // پارامترها بر اساس نام ورودی اکشن کنترلر (با حروف کوچک) خوانده می‌شوند
+    int.TryParse(Context.Request.Query["page"], out pageNumber);
+    int.TryParse(Context.Request.Query["pageSize"], out pageSize);
+}
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <section id="configuration">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body collapse show">
+                            <div class="card-block card-dashboard">
+                                <p class="card-text">لیست تراکنش‌ها و درخواست‌های پرداخت</p>
+                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                    <div class="col-sm-12 table-responsive">
+                                        <table class="table table-striped table-bordered zero-configuration dataTable" id="DataTables_Table_0" role="grid">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th>نام کاربر</th>
+                                                    <th>شماره سبد خرید</th>
+                                                    <th>مبلغ (تومان)</th>
+                                                    <th>وضعیت پرداخت</th>
+                                                    <th>زمان پرداخت</th>
+                                                    <th>کد پیگیری (RefId)</th>
+                                                    <th>شناسه پرداخت (Authority)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.RequestPayDetails != null && Model.RequestPayDetails.Any())
+                                                {
+                                                    foreach (var item in Model.RequestPayDetails)
+                                                    {
+                                                        <tr role="row">
+                                                            <td>@item.UserName</td>
+                                                            <td>@item.CartId</td>
+                                                            <td>@item.Amount.ToString("n0")</td>
+                                                            <td>
+                                                                @if (item.IsPayed)
+                                                                {
+                                                                    <span class="badge badge-success">پرداخت شده</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="badge badge-danger">پرداخت نشده</span>
+                                                                }
+                                                            </td>
+                                                            <td dir="ltr" class="text-right">
+                                                                @(item.PayTime != null ? item.PayTime.Value.ToString("yyyy/MM/dd HH:mm") : "-")
+                                                            </td>
+                                                            <td>
+                                                                @(string.IsNullOrWhiteSpace(item.RefId) ? "-" : item.RefId)
+                                                            </td>
+                                                            <td>
+                                                                @(string.IsNullOrWhiteSpace(item.Athority) ? "-" : item.Athority)
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td colspan="7" class="text-center">هیچ تراکنشی یافت نشد.</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="pagination-product">
+                                    <nav aria-label="Page navigation example">
+                                        <paging total-records="@Model.TotalRows"
+                                                page-no="@(pageNumber == 0 ? 1 : pageNumber)"
+                                                page-size="@(pageSize == 0 ? 20 : pageSize)"
+                                                show-prev-next="true"
+                                                show-total-pages="false"
+                                                show-total-records="false"
+                                                show-page-size-nav="true"
+                                                show-first-numbered-page="true"
+                                                show-last-numbered-page="true"
+                                                query-string-key-page-no="page"
+                                                query-string-key-page-size="pageSize"
+                                                query-string-value="@@(Request.QueryString.Value)"
+                                                gap-size="2">
+                                        </paging>
+                                    </nav>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

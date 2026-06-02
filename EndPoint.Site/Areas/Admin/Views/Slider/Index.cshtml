@@ -1,0 +1,200 @@
+﻿@using Store.Application.Services.HomePage.Queries.GetSlider;
+@model List<SliderDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <section id="configuration">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-wrap bar-success">
+                                <h4 class="card-title">لیست اسلایدرها</h4>
+                            </div>
+                        </div>
+                        <div class="card-body collapse show">
+                            <div class="card-block card-dashboard">
+                                <p class="card-text">اسلایدرهای صفحه اصلی فروشگاه</p>
+                                <a href="~/admin/slider/add" class="btn btn-success mb-3">افزودن اسلایدر جدید</a>
+
+                                <div class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                    <div class="col-sm-12">
+                                        <table class="table table-striped table-bordered zero-configuration dataTable">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th>پیش‌نمایش عکس</th>
+                                                    <th>آدرس لینک (URL)</th>
+                                                    <th>سورس عکس (آدرس فایل)</th>
+                                                    <th>عملیات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr role="row" class="odd">
+                                                        <td class="text-center align-middle">
+                                                            <img src="~/@item.Src" alt="Slider Image" style="max-width: 150px; max-height: 100px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);" />
+                                                        </td>
+
+                                                        <td class="align-middle" dir="ltr" style="text-align:left;">@item.Link</td>
+
+                                                        <td class="align-middle" dir="ltr" style="text-align:left;">@item.Src</td>
+
+                                                        <td class="align-middle">
+                                                            <button class="btn btn-warning" onclick="ShowEditModal('@item.Id', '@item.Link')">ویرایش</button>
+                                                            <button onclick="Remove('@item.Id')" class="btn btn-danger">حذف</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section Modals
+{
+    <div class="modal fade" id="EditSliderModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ویرایش اسلایدر</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="Edit_Id" />
+
+                    <div class="form-group">
+                        <label>آدرس لینک جدید</label>
+                        <input type="text" id="Edit_Link" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>آپلود عکس جدید</label>
+                        <input type="file" id="Edit_Src" class="form-control" accept="image/*" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="button" class="btn btn-success" onclick="SubmitEdit()">ذخیره تغییرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts
+{
+    <link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Sweetalert2/sweetalert2.min.js"></script>
+
+    <script>
+        function Remove(Id) {
+            swal.fire({
+                title: 'حذف اسلایدر',
+                text: "آیا از حذف این عکس از اسلایدر مطمئن هستید؟",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'بله، حذف شود',
+                cancelButtonText: 'خیر'
+            }).then((result) => {
+                if (result.value) {
+                    var postData = {
+                        'Id': Id,
+                    };
+
+                    $.ajax({
+                        contentType: 'application/x-www-form-urlencoded',
+                        dataType: 'json',
+                        type: "POST",
+                        url: "Remove", 
+                        data: postData,
+                        success: function (data) {
+                            if (data.isSuccess == true) {
+                                swal.fire(
+                                    'موفق!',
+                                    data.message,
+                                    'success'
+                                ).then(function (isConfirm) {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                swal.fire(
+                                    'هشدار!',
+                                    data.message,
+                                    'warning'
+                                );
+                            }
+                        },
+                        error: function (request, status, error) {
+                            swal.fire(
+                                'خطا!',
+                                request.responseText,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            })
+        }
+
+        function ShowEditModal(id, link) 
+        {
+            $('#Edit_Id').val(id);
+            $('#Edit_Link').val(link);
+            $('#Edit_Src').val('');
+            $('#EditSliderModal').modal('show');
+        }
+
+        function SubmitEdit() 
+        {
+            var formData = new FormData();
+            formData.append("Id", $('#Edit_Id').val());
+            formData.append("Link", $('#Edit_Link').val());
+
+            var fileInput = document.getElementById('Edit_Src');
+            if (fileInput.files.length > 0) {
+                formData.append("File", fileInput.files[0]);
+            }
+
+            $.ajax({
+                url: '/Admin/Slider/Edit',
+                type: 'POST',
+                data: formData,
+                processData: false, 
+                contentType: false,
+                success: function (response) {
+                    if (response.isSuccess) {
+                        swal("موفق!", "اسلایدر با موفقیت ویرایش شد", "success").then(() => {
+                            location.reload(); 
+                        });
+                    } else {
+                        swal("خطا!", response.message, "error");
+                    }
+                },
+                error: function () {
+                    swal("خطا!", "مشکلی در ارتباط با سرور پیش آمد", "error");
+                }
+            });
+        }
+
+    </script>
+}
+
+
+

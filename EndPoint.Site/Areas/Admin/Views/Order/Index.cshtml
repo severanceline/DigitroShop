@@ -1,0 +1,197 @@
+﻿@addTagHelper *, LazZiya.TagHelpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Store.Application.Services.Orders.Queries.GetOrderForAdmin;
+@using Store.Domain.Entities.Orders
+@model ResultGetOrderForAdminDto
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+    int pageNumber;
+    int pageSize;
+    int.TryParse(Context.Request.Query["Page"], out pageNumber);
+    int.TryParse(Context.Request.Query["PageSize"], out pageSize);
+}
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <section id="configuration">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body collapse show">
+                            <div class="card-block card-dashboard">
+                                <p class="card-text">لیست سفارشات کاربران</p>
+                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                    <div class="col-sm-12">
+                                        <table class="table table-striped table-bordered zero-configuration dataTable" id="DataTables_Table_0" role="grid">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th>شماره سفارش</th>
+                                                    <th>نام کاربر</th>
+                                                    <th>مبلغ پرداخت (تومان)</th>
+                                                    <th>تعداد محصولات</th>
+                                                    <th>وضعیت سفارش</th>
+                                                    <th colspan="3">عملیات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.OrderInfo != null && Model.OrderInfo.Any())
+                                                {
+                                                    foreach (var item in Model.OrderInfo)
+                                                    {
+                                                        <tr role="row">
+                                                            <td>@item.OrderId</td>
+                                                            <td>@item.UserName</td>
+                                                            <td>@item.Amount.ToString("n0")</td>
+                                                            <td>@item.ProductCount</td>
+                                                            <td>
+                                                                @if (item.OrderState == State.Processing)
+                                                                {
+                                                                    <span class="badge badge-warning">در حال پردازش</span>
+                                                                }
+                                                                else if (item.OrderState == State.Canceled)
+                                                                {
+                                                                    <span class="badge badge-danger">لغو شده</span>
+                                                                }
+                                                                else if (item.OrderState == State.Delivered)
+                                                                {
+                                                                    <span class="badge badge-success">تحویل داده شده</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="badge badge-info">@item.OrderState.ToString()</span>
+                                                                }
+                                                            </td>
+
+                                                            <td>
+                                                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#changeStateModal-@item.OrderId">
+                                                                    تغییر وضعیت
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#collapseOrder-@item.OrderId" aria-expanded="false" aria-controls="collapseOrder-@item.OrderId">
+                                                                    جزئیات سفارش
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <a asp-area="Admin" asp-action="GetRequestPay" asp-controller="Order" asp-route-requestPayId="@item.RequestPayId" class="btn btn-secondary btn-sm">جزئیات پرداخت</a>
+                                                            </td>
+                                                        </tr>
+
+                                                        <!-- سطر مخفی آکاردئون -->
+                                                        <tr>
+                                                            <td colspan="8" class="p-0">
+                                                                <div class="collapse" id="collapseOrder-@item.OrderId">
+                                                                    <div class="card card-body m-2" style="background-color: #f8f9fa;">
+                                                                        <h6 class="mb-3">محصولات سفارش شماره @item.OrderId</h6>
+                                                                        <table class="table table-sm table-bordered mb-0">
+                                                                            <thead class="thead-dark">
+                                                                                <tr>
+                                                                                    <th>نام محصول</th>
+                                                                                    <th>تعداد</th>
+                                                                                    <th>قیمت واحد (تومان)</th>
+                                                                                    <th>قیمت کل (تومان)</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @if (item.OrderDetails != null && item.OrderDetails.Any())
+                                                                                {
+                                                                                    foreach (var detail in item.OrderDetails)
+                                                                                    {
+                                                                                        <tr>
+                                                                                            <td>@detail.ProductName</td>
+                                                                                            <td>@detail.Count</td>
+                                                                                            <td>@detail.Price.ToString("n0")</td>
+                                                                                            <td>@((detail.Price * detail.Count).ToString("n0"))</td>
+                                                                                        </tr>
+                                                                                    }
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td colspan="4" class="text-center">جزئیاتی برای این سفارش ثبت نشده است.</td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td colspan="8" class="text-center">هیچ سفارشی یافت نشد.</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="pagination-product">
+                                    <nav aria-label="Page navigation example">
+                                        <paging total-records="@Model.TotalRow"
+                                                page-no="@pageNumber == 0 ? 1 : pageNumber"
+                                                page-size="@pageSize == 0 ? 20 : pageSize"
+                                                show-prev-next="true"
+                                                show-total-pages="false"
+                                                show-total-records="false"
+                                                show-page-size-nav="true"
+                                                show-first-numbered-page="true"
+                                                show-last-numbered-page="true"
+                                                query-string-key-page-no="Page"
+                                                query-string-key-page-size="PageSize"
+                                                query-string-value="@@(Request.QueryString.Value)"
+                                                gap-size="2">
+                                        </paging>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- مودال‌ها را اینجا (خارج از جدول) با یک حلقه جدید می‌سازیم -->
+@section Modals
+{
+    @if (Model.OrderInfo != null && Model.OrderInfo.Any())
+    {
+        foreach (var item in Model.OrderInfo)
+        {
+            <div class="modal fade" id="changeStateModal-@item.OrderId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-@item.OrderId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">تغییر وضعیت سفارش شماره @item.OrderId</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form asp-area="Admin" asp-controller="Order" asp-action="ChangeState" method="post">
+                            <div class="modal-body">
+                                <input type="hidden" name="OrderId" value="@item.OrderId" />
+
+                                <div class="form-group">
+                                    <label>وضعیت جدید را انتخاب کنید:</label>
+                                    <select name="orderStateage" asp-items="Html.GetEnumSelectList<Store.Domain.Entities.Orders.State>()" class="form-control" required>
+                                        <option value="">انتخاب کنید...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                                <button type="submit" class="btn btn-success">ثبت تغییرات</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

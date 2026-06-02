@@ -1,0 +1,83 @@
+﻿@using Store.Application.Services.Orders.Queries.GetOrder;
+@using Store.Domain.Entities.Orders;
+@model List<ResultGetOrderUserDto>
+@{
+    ViewData["Title"] = "سفارشات من";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered text-center align-middle">
+        <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>تاریخ ثبت</th>
+                <th>مبلغ کل</th>
+                <th>وضعیت</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int rowCount = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@rowCount</td>
+                    <td>@item.InsertTime</td>
+                    <td>@item.Price.ToString("n0") تومان</td>
+                    <td>
+                        <span class="badge badge-@(item.OrderState == State.Delivered ? "success" : "warning")">
+                            @item.OrderState
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-primary btn-sm" type="button" data-toggle="collapse" data-target="#orderDetails-@rowCount" aria-expanded="false" aria-controls="orderDetails-@rowCount">
+                            <i class="fa fa-box"></i> محصولات
+                        </button>
+
+                        <a asp-action="GetRequestPay" asp-controller="Order" asp-route-requestPayId="@item.RequestPayId">مشاهده فاکتور</a>
+                    </td>
+                </tr>
+
+                <tr class="collapse bg-light" id="orderDetails-@rowCount">
+                    <td colspan="5" class="p-3">
+                        <div class="text-right">
+                            <h6 class="text-muted mb-3">جزئیات سفارش</h6>
+                            <table class="table table-sm table-borderless mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>نام محصول</th>
+                                        <th>تعداد</th>
+                                        <th>قیمت واحد</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var detail in item.ProductDetail)
+                                    {
+                                        <tr>
+                                            <td class="text-truncate" style="max-width: 250px;" title="@detail.ProductName">@detail.ProductName</td>
+                                            <td>@detail.Count عدد</td>
+                                            <td>@detail.ProductPrice.ToString("n0") تومان</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+                rowCount++;
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning text-center">
+        شما تاکنون هیچ سفارشی ثبت نکرده‌اید.
+    </div>
+}
+

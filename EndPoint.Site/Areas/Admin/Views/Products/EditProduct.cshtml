@@ -1,0 +1,540 @@
+﻿@model ProductDetailForAdmindto
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Store.Application.Services.Products.Queries.GetProductDetailForAdmin
+@{
+    ViewData["Title"] = "جزئیات محصول";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+}
+
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title-wrap bar-warning">
+                <div class="card-title">ویرایش محصول</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <ul class="no-list-style">
+                            <li class="mb-2">
+                                <span class="primary text-bold-500"><a><i class="ft-home font-small-3"></i>  محصول</a></span>
+                                <input type="text" id="Name" value="@Model.Name" class="form-control form-control-sm bg-light" />
+                            </li>
+                            <li class="mb-2">
+                                <span class="primary text-bold-500"><a><i class="ft-briefcase font-small-3"></i> برند</a></span>
+                                <input type="text" id="Brand" value="@Model.Brand" class="form-control form-control-sm bg-light" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <ul class="no-list-style">
+                            <li class="mb-2">
+                                <span class="primary text-bold-500"><a><i class="ft-home font-small-3"></i> دسته بندی</a></span>
+                                <fieldset class="form-group">
+                                    <label for="basicInput">دسته بندی </label>
+                                    <select class="form-control" id="Category" asp-items="@ViewBag.Categories"></select>
+                                </fieldset>
+                            </li>
+                            <li class="mb-2">
+                                <span class="primary text-bold-500"><a><i class="ft-home font-small-3"></i>قیمت</a></span>
+                                <input type="text" id="Price" value="@(Model.Price.ToString("N0"))" class="form-control form-control-sm bg-light" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <ul class="no-list-style">
+                            <li class="mb-2">
+                                <span class="primary text-bold-500"><a><i class="ft-home font-small-3"></i>موجودی</a></span>
+                                <input type="text" id="Inventory" value="@Model.Inventory" class="form-control form-control-sm bg-light" />
+                            </li>
+                            <li class="mb-2">
+                                <span class="primary text-bold-500 "><a><i class="ft-home font-small-3"></i>نمایش در سایت؟</a></span>
+                                <input type="checkbox" class="" id="Displayed" name="Displayed" @(Model.Displayed ? "checked" : "") />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <ul class="no-list-style">
+                            <li class="mb-2">
+                                <span class="primary text-bold-500"><a><i class="ft-home font-small-3"></i>توضیحات</a></span>
+                                <textarea id="Description" class="form-control form-control-sm" rows="3">@Model.Description</textarea>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="card-title-wrap bar-success">
+            <div class="card-title">ویژگی های محصول</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="card-block">
+            <div class="row">
+
+                <div class="col-md-5 mb-1">
+                    <fieldset class="form-group">
+                        <label>نام ویژگی</label>
+                        <input type="text"
+                               class="form-control"
+                               id="txtDisplayName"
+                               placeholder="نام ویژگی" />
+                    </fieldset>
+                </div>
+
+                <div class="col-md-5 mb-1">
+                    <fieldset class="form-group">
+                        <label>مقدار ویژگی</label>
+                        <input type="text"
+                               class="form-control"
+                               id="txtValue"
+                               placeholder="مقدار ویژگی" />
+                    </fieldset>
+                </div>
+
+                <div class="col-md-2 mb-1 d-flex align-items-end">
+                    <button type="button"
+                            class="btn btn-success w-100"
+                            id="btnAddFeatures">
+                        افزودن
+                    </button>
+                </div>
+
+            </div>
+
+            <br class="clear" />
+
+            <table id="tbl_Features" class="col-md-12 table table-bordered table-hover  table-condensed table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            نام ویژگی
+                        </th>
+                        <th>
+                            مقدار ویژگی
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Features)
+                    {
+                        <tr data-id="@item.Id">
+
+                            <td class="feature-name">
+                                @item.DisplayName
+                            </td>
+
+                            <td class="feature-value">
+                                @item.Value
+                            </td>
+
+                            <td>
+
+                                <button type="button"
+                                        class="btn btn-warning btnEditFeature">
+                                    ویرایش
+                                </button>
+
+                                <button type="button"
+                                        class="btn btn-success btnSaveFeature"
+                                        style="display:none">
+                                    ذخیره
+                                </button>
+
+                                <a class="idFeatures btn btn-danger">
+                                    حذف
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="card-title-wrap bar-success">
+            <div class="card-title">عکس های محصول</div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="card-block">
+            <div class="row">
+                <div class="col-12 text-center">
+
+                    <fieldset class="form-group col-md-8 mx-auto">
+                        <label for="basicInput">تصاویر جدید</label>
+                        <input type="file" multiple class="form-control" accept="image/*" id="Images">
+                    </fieldset>
+
+                    <div class="d-flex flex-wrap justify-content-center mt-4" style="gap: 20px;">
+
+                        @foreach (var item in Model.Images)
+                        {
+                            <div class="product-image d-flex flex-column" data-id="@item.Id" style="width: 200px;">
+
+                                <figure class="m-0 mb-2">
+                                    <a target="_blank" href="~/@item.Src" data-id="@item.Id">
+                                        <img class="img-thumbnail" src="~/@item.Src" style="width: 200px; height: 200px; object-fit: cover;">
+                                    </a>
+                                </figure>
+
+                                <button type="button" class="btn btn-danger btn-sm btnRemoveImage w-100">
+                                    <i class="fa fa-trash"></i> حذف تصویر
+                                </button>
+
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-12 text-center">
+        <button type="button"
+                id="btnEditProduct"
+                class="btn  btn-primary btn-lg">
+            ثبت ویرایش محصول
+        </button>
+    </div>
+</div>
+
+@section Scripts
+{
+    <link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Sweetalert2/sweetalert2.min.js"></script>
+
+    <script>
+        let originalData = {};
+        var deletedFeatures = [];
+        var deletedImages =[];
+        var updatedFeatures = [];
+        $(document).ready(function () {
+            originalData = {
+                Name: $("#Name").val(),
+                Brand: $("#Brand").val(),
+                CategoryId: $("#Category").val(),
+                Price: parseInt($("#Price").val().replace(/,/g, '')),
+                Inventory: $("#Inventory").val(),
+                Displayed: $("#Displayed").is(':checked'),
+                Description: $("#Description").val()
+            };
+            function getChangedData() {
+                let changedData = {};
+                let name = $("#Name").val();
+                if (name !== originalData.Name) {
+                    changedData.Name = name;
+                }
+                let brand = $("#Brand").val();
+                if (brand !== originalData.Brand) {
+                    changedData.Brand = brand;
+                }
+                let categoryId = $("#Category").val();
+                if (categoryId !== originalData.CategoryId) {
+                    changedData.CategoryId = categoryId;
+                }
+                let price = parseInt($("#Price").val().replace(/,/g, ''));
+                if (price !== originalData.Price) {
+                    changedData.Price = price; 
+                }
+                let inventory = $("#Inventory").val();
+                if (inventory !== originalData.Inventory) {
+                    changedData.Inventory = inventory;
+                }
+                let displayed = $("#Displayed").is(':checked');
+                if (displayed !== originalData.Displayed) {
+                    changedData.Displayed = displayed;
+                }
+                let description = $('#Description').val();
+                if (description !== originalData.Description) {
+                    changedData.Description = description;
+                }
+                return changedData;
+            }
+
+            $("#btnAddFeatures").on("click", function () {
+                var txtDisplayName = $("#txtDisplayName").val();
+                var txtValue = $("#txtValue").val();
+
+                if (txtDisplayName == "" || txtValue == "") {
+                    Swal.fire(
+                        'هشدار!',
+                        "نام و مقدار را باید وارد کنید",
+                        'warning'
+                    );
+                }
+                else {
+                    $('#tbl_Features tbody').append(
+                        '<tr data-isnew="true">' +
+                        '<td class="feature-name">' + txtDisplayName + '</td>' +
+                        '<td class="feature-value">' + txtValue + '</td>' +
+                        '<td>' +
+                        '<button type="button" class="btn btn-warning btnEditFeature">ویرایش</button>' +
+                        '<button type="button" class="btn btn-success btnSaveFeature" style="display:none">ذخیره</button>' +
+                        '<a class="idFeatures btn btn-danger">حذف</a>' +
+                        '</td>' +
+                        '</tr>'
+                    );
+                    $("#txtDisplayName").val(''); 
+                    $("#txtValue").val(''); 
+                }
+            });
+
+            $("#tbl_Features").on('click', '.idFeatures', function () {
+                var row = $(this).closest('tr');
+                var id = row.data('id');
+                if (id !== undefined) {
+                    deletedFeatures.push(id);
+                }
+                row.remove();
+            });
+
+            $(document).on('click', '.btnRemoveImage', function () {
+                var container = $(this).closest('.product-image');
+                var id = container.data('id');
+                if (id !== undefined) {
+                    deletedImages.push(id);
+                }
+                container.remove();
+            });
+
+            $("#tbl_Features").on('click', '.btnEditFeature', function () {
+                var row = $(this).closest('tr');
+                var nameTd = row.find('.feature-name');
+                var valueTd = row.find('.feature-value');
+                var currentName = nameTd.text().trim();
+                var currentValue = valueTd.text().trim();
+                nameTd.html(
+                    '<input type="text" class="form-control edit-name" value="' + currentName + '" />'
+                );
+                valueTd.html(
+                    '<input type="text" class="form-control edit-value" value="' + currentValue + '" />'
+                );
+                row.find('.btnEditFeature').hide();
+                row.find('.btnSaveFeature').show();
+            });
+
+            $("#tbl_Features").on('click', '.btnSaveFeature', function () {
+                var row = $(this).closest('tr');
+                var id = row.data('id');
+                var newName = row.find('.edit-name').val();
+                var newValue = row.find('.edit-value').val();
+                row.find('.feature-name').html(newName);
+                row.find('.feature-value').html(newValue);
+                row.find('.btnSaveFeature').hide();
+                row.find('.btnEditFeature').show();
+                //اگر ویژگی جدیدی بود
+                if (id == undefined) return;
+                var exists = updatedFeatures.find(x => x.Id == id);
+                if (exists) {
+                    exists.DisplayName = newName;
+                    exists.Value = newValue;
+                }
+                else {
+                    updatedFeatures.push({
+                        Id: id,
+                        DisplayName: newName,
+                        Value: newValue
+                    });
+                }
+            });
+
+            $("#btnEditProduct").on('click', function () {
+            // --- 1. دریافت مقادیر فعلی برای اعتبارسنجی ---
+            var currentName = $("#Name").val().trim();
+            var currentBrand = $("#Brand").val().trim();
+            var currentCategory = $("#Category").val();
+            var currentPriceStr = $("#Price").val().replace(/,/g, '');
+            var currentPrice = parseInt(currentPriceStr);
+            var currentInventoryStr = $("#Inventory").val();
+            var currentInventory = parseInt(currentInventoryStr);
+            var currentDescription = $("#Description").val().trim();
+
+            // --- 2. اعتبارسنجی مقادیر ---
+            if (!currentName) {
+                Swal.fire('خطا!', 'نام محصول نمی‌تواند خالی باشد.', 'error');
+                return;
+            }
+            if (!currentBrand) {
+                Swal.fire('خطا!', 'برند محصول نمی‌تواند خالی باشد.', 'error');
+                return;
+            }
+            if (!currentCategory) {
+                Swal.fire('خطا!', 'لطفاً دسته‌بندی را انتخاب نمایید.', 'error');
+                return;
+            }
+            if (!currentPriceStr || isNaN(currentPrice) || currentPrice <= 0) {
+                Swal.fire('خطا!', 'لطفاً یک قیمت معتبر (بزرگتر از صفر) وارد نمایید.', 'error');
+                return;
+            }
+            if (!currentInventoryStr || isNaN(currentInventory) || currentInventory < 0) {
+                Swal.fire('خطا!', 'لطفاً تعداد موجودی معتبر (بزرگتر یا مساوی صفر) وارد نمایید.', 'error');
+                return;
+            }
+            if (!currentDescription) {
+                Swal.fire('خطا!', 'توضیحات محصول نمی‌تواند خالی باشد.', 'error');
+                return;
+            }
+
+            // --- 3. بررسی وجود حداقل یک عکس (عکس‌های قبلی حذف نشده + عکس‌های جدید) ---
+            var existingImagesCount = $('.product-image').length; // تعداد عکس‌های فعلی موجود در صفحه
+            var newImagesCount = document.getElementById("Images").files.length; // تعداد عکس‌های جدید
+            if (existingImagesCount === 0 && newImagesCount === 0) {
+                Swal.fire('خطا!', 'محصول باید حداقل یک تصویر داشته باشد.', 'error');
+                return;
+            }
+
+            // --- 4. بررسی اینکه هیچ ویژگی در حالت "ویرایش باز" (ذخیره نشده) نمانده باشد ---
+            var isAnyFeatureInEditMode = $('#tbl_Features .btnSaveFeature:visible').length > 0;
+            if (isAnyFeatureInEditMode) {
+                Swal.fire('خطا!', 'لطفاً ابتدا ویژگی‌های در حال ویرایش را ذخیره کنید.', 'error');
+                return;
+            }
+
+            // --- 5. بررسی وجود حداقل یک ویژگی ---
+            var featureCount = $('#tbl_Features tr:gt(0)').length;
+            if (featureCount === 0) {
+                Swal.fire('خطا!', 'محصول باید حداقل یک ویژگی داشته باشد.', 'error');
+                return;
+            }
+
+            var data = new FormData();
+            data.append("Id", "@Model.Id");
+
+            // فقط اطلاعاتی که تغییر کردند ذخیره میشند
+            var changedData = getChangedData();
+            $.each(changedData, function (key, value) {
+                data.append(key, value);
+            });
+
+            
+            // تصاویری که اضافه شدند
+            var newImagesAdded = false;
+            var productImagesInput = document.getElementById("Images"); 
+
+            if (productImagesInput.files.length > 0) {
+                for (var i = 0; i < productImagesInput.files.length; i++) {
+                    data.append('Images', productImagesInput.files[i]);
+                }
+                newImagesAdded = true;
+            }
+
+            // فیچر هایی که اضافه شدند
+            var addedFeatures = $('#tbl_Features tbody tr[data-isnew="true"]').map(function () { 
+                return {
+                    DisplayName: $(this.cells[0]).text().trim(),
+                    Value: $(this.cells[1]).text().trim(),
+                };
+            }).get();
+            $.each(addedFeatures, function (i, val) {
+                data.append('AddedFeatures[' + i + '].DisplayName', val.DisplayName);
+                data.append('AddedFeatures[' + i + '].Value', val.Value);
+            });
+
+            // تصاویری که حذف شدند
+            $.each(deletedImages, function (i, val) {
+                data.append('RemovedImages[' + i + ']', val);
+            });
+
+            // فیچر هایی که حذف شدند
+            $.each(deletedFeatures, function (i, val) {
+                data.append('RemovedFeatures[' + i + ']', val);
+            });
+
+            // فیچر هایی که آپدیت شدند
+            $.each(updatedFeatures, function (i, val) {
+                data.append('UpdatedFeatures[' + i + '].Id', val.Id);
+                data.append('UpdatedFeatures[' + i + '].DisplayName', val.DisplayName);
+                data.append('UpdatedFeatures[' + i + '].Value', val.Value);
+            });
+
+            // بررسی این که آیا تغییر ایجاد شده
+            var hasChanges =
+                Object.keys(changedData).length > 0 ||
+                newImagesAdded ||
+                addedFeatures.length > 0 || 
+                deletedImages.length > 0 ||
+                deletedFeatures.length > 0 ||
+                updatedFeatures.length > 0;
+
+             if (!hasChanges) {
+                Swal.fire('هشدار!', 'هیچ تغییری برای ثبت وجود ندارد.', 'warning');
+                return;
+            }
+
+            Swal.fire({
+                title: 'ثبت تغییرات',
+                text: "آیا مطمئن هستید؟",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'بله',
+                cancelButtonText: 'خیر'
+            }).then((result) => {
+                if (result.isConfirmed || result.value) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/Products/EditProduct",
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (data) {
+                            if (data.isSuccess == true) {
+                                Swal.fire(
+                                    'موفق!',
+                                    data.message,
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                Swal.fire(
+                                    'هشدار!',
+                                    data.message,
+                                    'warning'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
+                            console.log(xhr);
+                            Swal.fire(
+                                'خطا!',
+                                'درخواست با خطا مواجه شد: ' + xhr.status,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+
+        });
+
+    </script>
+}
+
+
