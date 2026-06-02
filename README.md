@@ -63,7 +63,6 @@ The system manages permissions dynamically based on 3 specific roles:
 - **Content Management:** Manage homepage sliders and site banners.
 
 ---
-
 ## 📸 Screenshots
 
 To give you a visual tour of **DigitroShop**, here are the previews of the User Interface and Admin Dashboard:
@@ -82,18 +81,21 @@ To give you a visual tour of **DigitroShop**, here are the previews of the User 
 |:---:|:---:|
 | ![Sign In](Screenshots/login-page.png) | ![Sign Up](Screenshots/signup-page.png) |
 
+| Product List |
+|:---:|
+| ![Product Management](Screenshots/products-page.png) |
+
 ### ⚙️ Admin Dashboard (Management)
 
-| Admin Overview | Product List |
+| Admin Overview | Order List |
 |:---:|:---:|
-| ![Admin Panel](Screenshots/admin-page.png) | ![Product Management](Screenshots/products-page.png) |
+| ![Admin Panel](Screenshots/admin-page.png) | ![Order List](Screenshots/order-page.png) |
 
 | Add Product | Edit Product |
 |:---:|:---:|
-| ![Add Product](Screenshots/Add-product-page.png) | ![Edit Product](Screenshots/edit-product-page.png) |
+| ![Add Product](Screenshots/add-product-page.png) | ![Edit Product](Screenshots/edit-product-page.png) |
 
 ---
-
 ## 🔧 How to Run
 1.  Clone the repository: `git clone https://github.com/your-username/DigitroShop.git`
 2.  Navigate to the `Persistance` layer and update the ConnectionString in `appsettings.json`.
