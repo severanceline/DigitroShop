@@ -69,9 +69,10 @@ The system manages permissions dynamically based on 3 specific roles:
 To give you a visual tour of **DigitroShop**, here are the previews of the User Interface and Admin Dashboard:
 
 ### 🛒 Storefront (Customer Perspective)
-| Home Page | Product Details |
-|:---:|:---:|
-| ![Home Page](Screenshots/home-page1.png) | ![Product Details](Screenshots/product-detail-page.png) |
+| Home Page 1 | Home Page 2 | Product Details | Product Details |
+|:---:|:---:||:---:|:---:|
+| ![Home Page](Screenshots/home-page1.png) | ![Home Page 2](Screenshots/home-page2.png) |
+| ![Product Details](Screenshots/product-detail-page.png) 
 
 | Shopping Cart | Login & Registration |
 |:---:|:---:|
@@ -81,9 +82,6 @@ To give you a visual tour of **DigitroShop**, here are the previews of the User 
 | Admin Overview | Product List |
 |:---:|:---:|
 | ![Admin Panel](Screenshots/admin-page.png) | ![Product Management](Screenshots/products-page.png) |
-
-| Add New Product | Edit Product |
-|:---:|:---:|
 | ![Add Product](Screenshots/add-product-page.png) | ![Edit Product](Screenshots/edit-product-page.png) |
 
 ---
