@@ -64,18 +64,30 @@ The system manages permissions dynamically based on 3 specific roles:
 
 ---
 
-## 📸 Screenshots (Optional)
-*To give you a visual tour of DigitroShop:*
+## 📸 Screenshots
 
-| Storefront Home | Admin Dashboard |
-|---|---|
-| ![Home Page](https://via.placeholder.com/400x250?text=Storefront+Screenshot) | ![Admin Panel](https://via.placeholder.com/400x250?text=Admin+Panel+Screenshot) |
+To give you a visual tour of **DigitroShop**, here are the previews of the User Interface and Admin Dashboard:
 
-| Product Management | Order Status Update |
-|---|---|
-| ![Products](https://via.placeholder.com/400x250?text=Product+List) | ![Orders](https://via.placeholder.com/400x250?text=Order+Management) |
+### 🛒 Storefront (Customer Perspective)
+| Home Page | Product Details |
+|:---:|:---:|
+| ![Home Page](Screenshots/home-page1.png) | ![Product Details](Screenshots/product-detail-page.png) |
+
+| Shopping Cart | Login & Registration |
+|:---:|:---:|
+| ![Cart](Screenshots/cart-page.png) | ![Login](Screenshots/login-page.png) |
+
+### ⚙️ Admin Dashboard (Management)
+| Admin Overview | Product List |
+|:---:|:---:|
+| ![Admin Panel](Screenshots/admin-page.png) | ![Product Management](Screenshots/products-page.png) |
+
+| Add New Product | Edit Product |
+|:---:|:---:|
+| ![Add Product](Screenshots/add-product-page.png) | ![Edit Product](Screenshots/edit-product-page.png) |
 
 ---
+
 
 ## 🔧 How to Run
 1.  Clone the repository: `git clone https://github.com/your-username/DigitroShop.git`
