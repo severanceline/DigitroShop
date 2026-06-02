@@ -22,3 +22,4 @@ D:\Webapp\Digitro\Store.Common\obj\Debug\net8.0\Store.Common.dll
 D:\Webapp\Digitro\Store.Common\obj\Debug\net8.0\refint\Store.Common.dll
 D:\Webapp\Digitro\Store.Common\obj\Debug\net8.0\Store.Common.pdb
 D:\Webapp\Digitro\Store.Common\obj\Debug\net8.0\ref\Store.Common.dll
+D:\Webapp\Digitro\Store.Common\obj\Debug\net8.0\Store.Common.sourcelink.json

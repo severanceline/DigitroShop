@@ -40,3 +40,4 @@ D:\Webapp\Digitro\Store.Persistance\obj\Debug\net8.0\refint\Store.Persistance.dl
 D:\Webapp\Digitro\Store.Persistance\obj\Debug\net8.0\Store.Persistance.pdb
 D:\Webapp\Digitro\Store.Persistance\obj\Debug\net8.0\Store.Persistance.genruntimeconfig.cache
 D:\Webapp\Digitro\Store.Persistance\obj\Debug\net8.0\ref\Store.Persistance.dll
+D:\Webapp\Digitro\Store.Persistance\obj\Debug\net8.0\Store.Persistance.sourcelink.json

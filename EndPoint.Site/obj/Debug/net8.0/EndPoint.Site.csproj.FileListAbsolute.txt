@@ -594,3 +594,4 @@ D:\Webapp\Digitro\EndPoint.Site\obj\Debug\net8.0\refint\EndPoint.Site.dll
 D:\Webapp\Digitro\EndPoint.Site\obj\Debug\net8.0\EndPoint.Site.pdb
 D:\Webapp\Digitro\EndPoint.Site\obj\Debug\net8.0\EndPoint.Site.genruntimeconfig.cache
 D:\Webapp\Digitro\EndPoint.Site\obj\Debug\net8.0\ref\EndPoint.Site.dll
+D:\Webapp\Digitro\EndPoint.Site\obj\Debug\net8.0\EndPoint.Site.sourcelink.json

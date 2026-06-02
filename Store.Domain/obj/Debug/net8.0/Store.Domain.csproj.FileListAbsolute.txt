@@ -20,3 +20,4 @@ D:\Webapp\Digitro\Store.Domain\obj\Debug\net8.0\Store.Domain.dll
 D:\Webapp\Digitro\Store.Domain\obj\Debug\net8.0\refint\Store.Domain.dll
 D:\Webapp\Digitro\Store.Domain\obj\Debug\net8.0\Store.Domain.pdb
 D:\Webapp\Digitro\Store.Domain\obj\Debug\net8.0\ref\Store.Domain.dll
+D:\Webapp\Digitro\Store.Domain\obj\Debug\net8.0\Store.Domain.sourcelink.json

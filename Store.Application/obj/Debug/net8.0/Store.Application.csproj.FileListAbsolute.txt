@@ -36,3 +36,4 @@ D:\Webapp\Digitro\Store.Application\obj\Debug\net8.0\refint\Store.Application.dl
 D:\Webapp\Digitro\Store.Application\obj\Debug\net8.0\Store.Application.pdb
 D:\Webapp\Digitro\Store.Application\obj\Debug\net8.0\Store.Application.genruntimeconfig.cache
 D:\Webapp\Digitro\Store.Application\obj\Debug\net8.0\ref\Store.Application.dll
+D:\Webapp\Digitro\Store.Application\obj\Debug\net8.0\Store.Application.sourcelink.json
