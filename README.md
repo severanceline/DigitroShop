@@ -95,11 +95,25 @@ To give you a visual tour of **DigitroShop**, here are the previews of the User 
 | ![Add Product](Screenshots/add-product-page.png) | ![Edit Product](Screenshots/edit-product-page.png) |
 
 ---
+## 📋 Prerequisites
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- SQL Server (LocalDB or Developer Edition)
+- Visual Studio 2022 / JetBrains Rider
+
+---
+
 ## 🔧 How to Run
 1.  Clone the repository: `git clone https://github.com/severanceline/DigitroShop.git`
 2.  Navigate to the `Persistence` layer and update the ConnectionString in `appsettings.json`.
 3.  Run `Update-Database` in Package Manager Console.
 4.  Build and Run the project.
+
+---
+
+### 🔐 Default Test Accounts
+After applying migrations, you can use the following credentials to test the roles:
+- **Admin:** `digitroadmin@gmail.com` | Password: `LoLo1234` 
+- **Operator:** `digitrooperator@gmail.com` | Password: `Moop00W3`
 
 ---
 
