@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Store.Persistance.Contexts;
 
@@ -11,9 +12,11 @@ using Store.Persistance.Contexts;
 namespace Store.Persistance.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20260602170606_AddUserSeedData")]
+    partial class AddUserSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -544,20 +547,20 @@ namespace Store.Persistance.Migrations
                             Id = 1L,
                             Email = "digitroadmin@gmail.com",
                             FullName = "Admin",
-                            InsertTime = new DateTime(2026, 6, 2, 20, 43, 20, 22, DateTimeKind.Local).AddTicks(6511),
+                            InsertTime = new DateTime(2026, 6, 2, 20, 36, 0, 599, DateTimeKind.Local).AddTicks(1775),
                             IsActive = true,
                             IsRemoved = false,
-                            Password = "$2a$11$Fy5q0V7T2e5peffFnO2ZFeYMqmcixBcYLFpz6OE1gAX6z9CT/b2xG"
+                            Password = "$2a$11$gxT6FO8RsSCghxHU9UW7pulcjTYwrM4AFFnRxK7ftQhK7bkfKiXEq"
                         },
                         new
                         {
                             Id = 2L,
                             Email = "digitrooperator@gmail.com",
-                            FullName = "Opertor",
-                            InsertTime = new DateTime(2026, 6, 2, 20, 43, 20, 259, DateTimeKind.Local).AddTicks(1176),
+                            FullName = "Admin",
+                            InsertTime = new DateTime(2026, 6, 2, 20, 36, 0, 880, DateTimeKind.Local).AddTicks(8483),
                             IsActive = true,
                             IsRemoved = false,
-                            Password = "$2a$11$hRLkFc.CKajia.y/hSC9fOKac2aE1Q7u3KuqvZNf2Vt/nl5qxIlnC"
+                            Password = "$2a$11$EBeRTRXX3RU6wODFCBYK1ef4oe8VnoanJu7WdduRELAJZkUH/aC1G"
                         });
                 });
 

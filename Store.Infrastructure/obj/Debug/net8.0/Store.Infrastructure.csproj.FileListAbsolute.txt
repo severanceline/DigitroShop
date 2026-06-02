@@ -20,3 +20,4 @@ D:\Webapp\Digitro\Store.Infrastructure\obj\Debug\net8.0\Store.Infrastructure.dll
 D:\Webapp\Digitro\Store.Infrastructure\obj\Debug\net8.0\refint\Store.Infrastructure.dll
 D:\Webapp\Digitro\Store.Infrastructure\obj\Debug\net8.0\Store.Infrastructure.pdb
 D:\Webapp\Digitro\Store.Infrastructure\obj\Debug\net8.0\ref\Store.Infrastructure.dll
+D:\Webapp\Digitro\Store.Infrastructure\obj\Debug\net8.0\Store.Infrastructure.sourcelink.json

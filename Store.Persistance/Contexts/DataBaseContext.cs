@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using Store.Application.Interfaces.Contexts;
+using Store.Common.HashPassword;
 using Store.Common.Roles;
 using Store.Domain.Entities.Carts;
 using Store.Domain.Entities.Finances;
@@ -71,7 +73,33 @@ namespace Store.Persistance.Contexts
             modelBuilder.Entity<Role>().HasData(new Role { Id = 1, Name = nameof(UserRoles.Admin) });
             modelBuilder.Entity<Role>().HasData(new Role { Id = 2, Name = nameof(UserRoles.Operator) });
             modelBuilder.Entity<Role>().HasData(new Role { Id = 3, Name = nameof(UserRoles.Customer) });
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    Email = "digitroadmin@gmail.com",
+                    FullName = "Admin",
+                    Password = HashPassword.Execute("LoLo1234"),
+                    IsActive = true,
+                },
+                new User
+                {
+                    Id = 2,
+                    Email = "digitrooperator@gmail.com",
+                    FullName = "Opertor",
+                    Password = HashPassword.Execute("Moop00W3"),
+                    IsActive = true,
+                }
+            );
+
+            modelBuilder.Entity<UserInRole>().HasData(
+                new UserInRole { Id = 1, UserId = 1, RoleId = 1 },
+                new UserInRole { Id = 2, UserId = 2, RoleId = 2 }
+            );
         }
+
+
         private void ApplyQueryFilter(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasQueryFilter(p => !p.IsRemoved);
