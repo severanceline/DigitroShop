@@ -28,12 +28,11 @@ This project is not just a shop; it's a demonstration of modern software enginee
 
 ## 📂 Project Structure
 The project follows **Clean Architecture** principles:
-- **Domain:** Entities, Enums, and Core logic.
-- **Application:** Interfaces, DTOs, CQRS Commands/Queries, and Service Facades.
-- **Infrastructure:** External services and cross-cutting concerns.
-- **Persistence:** Database Context, Migrations, and Repository implementations.
-- **Presentation:** MVC Controllers, Razor Pages, and Client-side assets.
-
+- **Domain:** Core business entities and enums.
+- **Application:** Service interfaces & implementations, Facade patterns, and CQRS use-cases. Data access is performed via an abstraction of DbContext.
+- **Infrastructure:**  Reserved for external service integrations and cross-cutting concerns such as caching, logging, and messaging. Currently kept minimal in this project.
+- **Persistence:** EF Core DbContext implementation, migrations, and database configuration.
+- **Presentation:** MVC controllers, Razor Pages, ViewModels, and client-side assets responsible for user interaction.
 ---
 
 ## 🔑 Role-Based Access Control (RBAC)
@@ -97,15 +96,15 @@ To give you a visual tour of **DigitroShop**, here are the previews of the User 
 
 ---
 ## 🔧 How to Run
-1.  Clone the repository: `git clone https://github.com/your-username/DigitroShop.git`
-2.  Navigate to the `Persistance` layer and update the ConnectionString in `appsettings.json`.
+1.  Clone the repository: `git clone https://github.com/severanceline/DigitroShop.git`
+2.  Navigate to the `Persistence` layer and update the ConnectionString in `appsettings.json`.
 3.  Run `Update-Database` in Package Manager Console.
 4.  Build and Run the project.
 
 ---
 
-## 👨‍💻 About the Developer
-I am an aspiring Backend Developer focused on building secure, scalable, and well-architected systems with .NET. This project reflects my understanding of:
+## 👨‍💻 About This Project
+This project was built to demonstrate practical experience with:
 - Custom Security Implementations.
 - Architectural Patterns (CQRS, Facade, Clean Arch).
 - Data Integrity and Validation.
