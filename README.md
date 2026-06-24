@@ -1,18 +1,18 @@
 # DigitroShop 🛒
-**A Professional E-commerce Platform built with .NET 8, Clean Architecture, and CQRS.**
+**An e-commerce application built with .NET 8, Clean Architecture, and CQRS-inspired patterns.**
 
-DigitroShop is a robust, full-featured online store and administration system. It is designed with a heavy focus on backend architecture, scalability, and secure role-based access control.
+DigitroShop is an online store and administration system created to practice common e-commerce workflows and backend architecture concepts, including layered design, role-based access control, and validation.
 
 ---
 
 ## 🚀 Key Architectural Highlights
-This project is not just a shop; it's a demonstration of modern software engineering patterns:
+This project applies several software design patterns and architectural concepts:
 
-*   **Clean Architecture:** Divided into 5 distinct layers (*Domain, Application, Infrastructure, Persistence, Presentation*) to ensure separation of concerns and maintainability.
-*   **CQRS Pattern:** Command and Query Responsibility Segregation is used in the service layer to optimize data operations.
-*   **Facade Pattern:** Implemented to simplify the interaction between controllers and complex service logic, making the codebase cleaner.
-*   **Custom Authentication & Authorization:** Instead of using default Identity, I built a custom **Claims-based Cookie Authentication** system from scratch, including custom User, Role, and UserInRole management.
-*   **Layered Validation:** Ensuring data integrity via **FluentValidation** on the server-side and **JavaScript/jQuery** on the client-side.
+*   **Clean Architecture:** The solution is divided into five layers: Domain, Application, Infrastructure, Persistence, and Presentation. This separation helps organize business logic, data access, and presentation concerns.
+*   **CQRS-Inspired Separation:** Read and write responsibilities are separated in the service layer where applicable, helping keep application workflows clearer and easier to maintain.
+*   **Facade Pattern:** Used in selected application workflows to provide a simpler interface between controllers and underlying services.
+*   **Custom Authentication & Authorization:** The project uses a custom claims-based cookie authentication system with User, Role, and UserInRole management instead of ASP.NET Core Identity.
+*   **Layered Validation:** Input validation is handled with FluentValidation on the server side and JavaScript/jQuery on the client side.
 
 ---
 
@@ -22,21 +22,21 @@ This project is not just a shop; it's a demonstration of modern software enginee
 *   **ORM:** Entity Framework Core (Code First)
 *   **Validation:** FluentValidation
 *   **UI/Frontend:** Bootstrap, jQuery, JavaScript
-*   **Tools:** LazZiya Pagination (Client-side)
+*   **Tools:** LazZiya TagHelpers for pagination
 
 ---
 
 ## 📂 Project Structure
-The project follows **Clean Architecture** principles:
+The project is organized into the following layers:
 - **Domain:** Core business entities and enums.
-- **Application:** Service interfaces & implementations, Facade patterns, and CQRS use-cases. Data access is performed via an abstraction of DbContext.
-- **Infrastructure:**  Reserved for external service integrations and cross-cutting concerns such as caching, logging, and messaging. Currently kept minimal in this project.
+- **Application:** Service interfaces and implementations, selected Facade-based workflows, and CQRS-inspired read/write workflows. Data access is performed through a DbContext abstraction.
+- **Infrastructure:**  Intended for external integrations and cross-cutting concerns such as caching, logging, messaging, file storage, and third-party services. This layer is currently minimal in the project.
 - **Persistence:** EF Core DbContext implementation, migrations, and database configuration.
 - **Presentation:** MVC controllers, Razor Pages, ViewModels, and client-side assets responsible for user interaction.
 ---
 
 ## 🔑 Role-Based Access Control (RBAC)
-The system manages permissions dynamically based on 3 specific roles:
+The application uses three roles with different permissions:
 
 1.  **Admin:** Full authority over the system. Can manage Users, Categories, Products, Sliders, and Site Settings.
 2.  **Operator:** Restricted access. Can manage Products and Orders, but is **blocked** from Users and Categories.
@@ -48,17 +48,17 @@ The system manages permissions dynamically based on 3 specific roles:
 
 ### 🛒 Storefront (Client)
 - **User Journey:** Custom Registration and Login system.
-- **Product Discovery:** Advanced searching, filtering, and category-based browsing.
-- **Shopping Cart:** Fully functional cart management.
+- **Product Discovery:** Product searching, filtering, and category-based browsing.
+- **Shopping Cart:** Add, remove, and update cart items.
 - **Order Management:** View order history, payment status, and tracking details.
-- **Pagination:** Smooth product listing using LazZiya library.
+- **Pagination:** Product-list pagination using LazZiya TagHelpers.
 
 ### ⚙️ Admin Dashboard
 - **User Management:** Create (with specific roles), Edit, Delete, or Deactivate users.
 - **Category Management:** Full CRUD operations for product hierarchy.
-- **Product Management:** Complete control over inventory and product details.
+- **Product Management:** Create, edit, delete, and manage product details and inventory.
 - **Order Tracking:** Monitor all orders and update statuses (*Processing, Delivered, Canceled*).
-- **Payment Logs:** View and audit all transaction details.
+- **Payment Logs:** View payment transaction records.
 - **Content Management:** Manage homepage sliders and site banners.
 
 ---
@@ -110,18 +110,9 @@ To give you a visual tour of **DigitroShop**, here are the previews of the User 
 
 ---
 
-### 🔐 Default Test Accounts
+## 🔐 Default Test Accounts
 After applying migrations, you can use the following credentials to test the roles:
 - **Admin:** `digitroadmin@gmail.com` | Password: `LoLo1234` 
 - **Operator:** `digitrooperator@gmail.com` | Password: `Moop00W3`
-
----
-
-## 👨‍💻 About This Project
-This project was built to demonstrate practical experience with:
-- Custom Security Implementations.
-- Architectural Patterns (CQRS, Facade, Clean Arch).
-- Data Integrity and Validation.
-- Enterprise-level project structuring.
 
 ---
