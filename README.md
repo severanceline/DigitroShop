@@ -30,7 +30,7 @@ This project applies several software design patterns and architectural concepts
 The project is organized into the following layers:
 - **Domain:** Core business entities and enums.
 - **Application:** Service interfaces and implementations, selected Facade-based workflows, and CQRS-inspired read/write workflows. Data access is performed through a DbContext abstraction.
-- **Infrastructure:**  Intended for external integrations and cross-cutting concerns such as caching, logging, messaging, file storage, and third-party services. This layer is currently minimal in the project.
+- **Infrastructure:** Intended for external integrations and cross-cutting concerns such as caching, logging, messaging, file storage, and third-party services. This layer is currently minimal in the project.
 - **Persistence:** EF Core DbContext implementation, migrations, and database configuration.
 - **Presentation:** MVC controllers, Razor Pages, ViewModels, and client-side assets responsible for user interaction.
 ---
@@ -110,7 +110,7 @@ To give you a visual tour of **DigitroShop**, here are the previews of the User 
 
 ---
 
-## 🔐 Default Test Accounts
+## 🔐 Development Test Accounts
 After applying migrations, you can use the following credentials to test the roles:
 - **Admin:** `digitroadmin@gmail.com` | Password: `LoLo1234` 
 - **Operator:** `digitrooperator@gmail.com` | Password: `Moop00W3`
